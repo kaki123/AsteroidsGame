@@ -1,17 +1,17 @@
-//your variable declarations here
+private SpaceShip galaxy = new SpaceShip();
 public void setup() 
 {
   //your code here
 }
 public void draw() 
 {
-  //your code here
+  galaxy.show();
 }
-class SpaceShip extends Floater  
+public class SpaceShip extends Floater  
 {   
-    int corner,  xCorner,  yCorner,  colors;
-    double centerX, centerY, directionX,directionY,  pointDirection;
-    SpaceShip(){
+    int corners,  xCorners,  yCorners,  myColor;
+    double myCenterX, myCenterY, myDirectionX,myDirectionY,  myPointDirection;
+    public SpaceShip(){
       corners = 3;
       xCorners = new int[corners];
       yCorners = new int[corners];
@@ -21,7 +21,12 @@ class SpaceShip extends Floater
       yCorners[1] = 0;
       xCorners[2] = -8;
       yCorners[2] = 8;
-
+      myCenterX= 200;
+      myCenterY=200;
+      myPointDirection= 0;
+      myDirectionX=3;
+      myDirectionY= 3;
+      myColor= color(255,255,255);
 
     }
 
