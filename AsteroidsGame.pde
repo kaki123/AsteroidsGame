@@ -9,7 +9,7 @@ public void draw()
 }
 public class SpaceShip extends Floater  
 {   
-    private int corners,  xCorners,  yCorners,  myColor;
+    private int corners,  myColor;
     private double myCenterX, myCenterY, myDirectionX,myDirectionY,  myPointDirection;
     public SpaceShip(){
       corners = 3;
@@ -30,9 +30,9 @@ public class SpaceShip extends Floater
 
     }
       public void setX(int x){myCenterX=x;}  
-      public int getX(){return myCenterX;}  
+      public int getX(){return (int)myCenterX;}  
       public void setY(int y){myCenterY=y;}   
-      public int getY(){return myCenterY;} 
+      public int getY(){return (int)myCenterY;} 
       public void setDirectionX(double x){myDirectionX=x;}   
       public double getDirectionX(){return (int)myDirectionX;}   
       public void setDirectionY(double y){myDirectionY=y;}  
