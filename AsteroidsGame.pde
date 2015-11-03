@@ -2,15 +2,38 @@ private SpaceShip galaxy;
 public void setup() 
 {
   galaxy = new SpaceShip();
+  size(512, 512);
 }
 public void draw() 
 {
+  
   galaxy.show();
+ //galaxy.move();
+
 }
+ public void keyPressed(KeyEvent e){
+        if(e.getKeyCode()==38)//up
+         {galaxy.accelerate(2);
+         
+          background(0);
+         } 
+      
+       else if(e.getKeyCode()==37)//left
+         {galaxy.rotate(-2);
+          background(0);
+        }
+    
+        else if(e.getKeyCode()==39){
+         galaxy.rotate(2);
+         background(0);
+        }
+       
+      }
+
 public class SpaceShip extends Floater  
 {   
-    private int corners,  myColor;
-    private double myCenterX, myCenterY, myDirectionX,myDirectionY,  myPointDirection;
+   // private int corners,  myColor;
+    //private double myCenterX, myCenterY, myDirectionX,myDirectionY,  myPointDirection;
     public SpaceShip(){
       corners = 3;
       xCorners = new int[corners];
@@ -39,6 +62,8 @@ public class SpaceShip extends Floater
       public double getDirectionY(){return (int)myDirectionY;}    
       public void setPointDirection(int degrees){myPointDirection=degrees;}   
       public double getPointDirection(){return myPointDirection;} 
+
+      
 
 
 
