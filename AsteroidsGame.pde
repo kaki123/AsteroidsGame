@@ -1,39 +1,49 @@
 private SpaceShip galaxy;
 public void setup() 
-{
-  galaxy = new SpaceShip();
-  size(512, 512);
-}
+  {
+    galaxy = new SpaceShip();
+    size(512, 512);
+  }
 public void draw() 
-{
-  
-  galaxy.show();
- //galaxy.move();
-
-}
- public void keyPressed(KeyEvent e){
-        if(e.getKeyCode()==38)//up
-         {galaxy.accelerate(2);
-         
-          background(0);
-         } 
-      
-       else if(e.getKeyCode()==37)//left
-         {galaxy.rotate(-2);
-          background(0);
-        }
-    
-        else if(e.getKeyCode()==39){
-         galaxy.rotate(2);
+  {
+    background(0);
+    galaxy.move();
+    galaxy.show();
+  }
+public void keyPressed(KeyEvent e){
+  if(e.getKeyCode()==38)//up
+      {
+        galaxy.accelerate(.05);
          background(0);
-        }
-       
+      } 
+  if(e.getKeyCode()==40)//down
+       {
+        galaxy.accelerate(-.05);
+         background(0);
+       } 
+    
+  if(e.getKeyCode()==37)//left
+      {
+        galaxy.rotate(-20);
+        background(0);
       }
+  
+  if(e.getKeyCode()==39)//right
+      {
+       galaxy.rotate(20);
+       background(0);
+      }
+  if (e.getKeyCode()==32)//spacebar
+      {
+        galaxy.setX(220);
+        galaxy.setY(220);
+        galaxy.setPointDirection(0);
+        background(0);
+      }  
+}
 
 public class SpaceShip extends Floater  
-{   
-   // private int corners,  myColor;
-    //private double myCenterX, myCenterY, myDirectionX,myDirectionY,  myPointDirection;
+  {   
     public SpaceShip(){
       corners = 3;
       xCorners = new int[corners];
@@ -47,10 +57,9 @@ public class SpaceShip extends Floater
       myCenterX= 200;
       myCenterY=200;
       myPointDirection= 0;
-      myDirectionX=3;
-      myDirectionY= 3;
+      myDirectionX= 0.1;
+      myDirectionY= 0.1;
       myColor= color(255,255,255);
-
     }
       public void setX(int x){myCenterX=x;}  
       public int getX(){return (int)myCenterX;}  
@@ -62,31 +71,27 @@ public class SpaceShip extends Floater
       public double getDirectionY(){return (int)myDirectionY;}    
       public void setPointDirection(int degrees){myPointDirection=degrees;}   
       public double getPointDirection(){return myPointDirection;} 
-
-      
-
-
-
 }
+
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
-{   
-  protected int corners;  //the number of corners, a triangular floater has 3   
-  protected int[] xCorners;   
-  protected int[] yCorners;   
-  protected int myColor;   
-  protected double myCenterX, myCenterY; //holds center coordinates   
-  protected double myDirectionX, myDirectionY; //holds x and y coordinates of the vector for direction of travel   
-  protected double myPointDirection; //holds current direction the ship is pointing in degrees    
-  abstract public void setX(int x);  
-  abstract public int getX();   
-  abstract public void setY(int y);   
-  abstract public int getY();   
-  abstract public void setDirectionX(double x);   
-  abstract public double getDirectionX();   
-  abstract public void setDirectionY(double y);   
-  abstract public double getDirectionY();   
-  abstract public void setPointDirection(int degrees);   
-  abstract public double getPointDirection(); 
+  {   
+    protected int corners;  //the number of corners, a triangular floater has 3   
+    protected int[] xCorners;   
+    protected int[] yCorners;   
+    protected int myColor;   
+    protected double myCenterX, myCenterY; //holds center coordinates   
+    protected double myDirectionX, myDirectionY; //holds x and y coordinates of the vector for direction of travel   
+    protected double myPointDirection; //holds current direction the ship is pointing in degrees    
+    abstract public void setX(int x);  
+    abstract public int getX();   
+    abstract public void setY(int y);   
+    abstract public int getY();   
+    abstract public void setDirectionX(double x);   
+    abstract public double getDirectionX();   
+    abstract public void setDirectionY(double y);   
+    abstract public double getDirectionY();   
+    abstract public void setPointDirection(int degrees);   
+    abstract public double getPointDirection(); 
 
   //Accelerates the floater in the direction it is pointing (myPointDirection)   
   public void accelerate (double dAmount)   
