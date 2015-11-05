@@ -1,44 +1,54 @@
 private SpaceShip galaxy;
+Star [] starList; 
 public void setup() 
   {
     galaxy = new SpaceShip();
     size(512, 512);
+    starList = new Star [200];
+    for(int i=0; i< starList.length; i++){
+        starList[i]= new Star(); 
+    }
   }
 public void draw() 
   {
     background(0);
     galaxy.move();
     galaxy.show();
+    for(int i=0 ; i<starList.length; i++){
+      starList[i].show();
+    }
   }
 public void keyPressed(KeyEvent e){
   if(e.getKeyCode()==38)//up
       {
+        
         galaxy.accelerate(.05);
-         background(0);
+        // background(0);
       } 
   if(e.getKeyCode()==40)//down
        {
+        
         galaxy.accelerate(-.05);
-         background(0);
+        // background(0);
        } 
     
   if(e.getKeyCode()==37)//left
       {
         galaxy.rotate(-20);
-        background(0);
+        //background(0);
       }
   
   if(e.getKeyCode()==39)//right
       {
        galaxy.rotate(20);
-       background(0);
+       //background(0);
       }
   if (e.getKeyCode()==32)//spacebar
       {
         galaxy.setX(220);
         galaxy.setY(220);
         galaxy.setPointDirection(0);
-        background(0);
+        //background(0);
       }  
 }
 
@@ -149,4 +159,22 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     endShape(CLOSE);  
   }   
 } 
+public class Star{
+  private int sX, sY, wi,he,c;
+  public Star(){
+    sX=(int)(Math.random()*500);
+    sY=(int)(Math.random()*500);
+    wi=(int)(Math.random()*5);
+    he=(int)(Math.random()*5);
+    c= (int)(Math.random()*255);
+  }
 
+  public void show()
+  {
+    noStroke();
+    fill(c,(int)(Math.random()*255),c);
+    ellipse(sX, sY, wi,he);
+  }
+
+
+}
