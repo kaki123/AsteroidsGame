@@ -55,7 +55,7 @@ public void keyPressed(KeyEvent e){
 public class SpaceShip extends Floater  
   {   
     public SpaceShip(){
-      corners = 3;
+      corners = 4;
       xCorners = new int[corners];
       yCorners = new int[corners];
       xCorners[0] = -8;
@@ -64,6 +64,8 @@ public class SpaceShip extends Floater
       yCorners[1] = 0;
       xCorners[2] = -8;
       yCorners[2] = 8;
+      xCorners[3] = -4;
+      yCorners[3] = 0;
       myCenterX= 200;
       myCenterY=200;
       myPointDirection= 0;
