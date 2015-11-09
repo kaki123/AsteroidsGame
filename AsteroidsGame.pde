@@ -18,32 +18,32 @@ public void draw()
       starList[i].show();
     }
   }
-public void keyPressed(KeyEvent e){
-  if(e.getKeyCode()==38)//up
+public void keyPressed(){
+  if(keyCode==38)//up
       {
         
         galaxy.accelerate(.05);
         // background(0);
       } 
-  if(e.getKeyCode()==40)//down
+  if(keyCode==40)//down
        {
         
         galaxy.accelerate(-.05);
         // background(0);
        } 
     
-  if(e.getKeyCode()==37)//left
+  if(keyCode==37)//left
       {
         galaxy.rotate(-20);
         //background(0);
       }
   
-  if(e.getKeyCode()==39)//right
+  if(keyCode==39)//right
       {
        galaxy.rotate(20);
        //background(0);
       }
-  if (e.getKeyCode()==32)//spacebar
+  if (keyCode==32)//spacebar
       {
         galaxy.setX(220);
         galaxy.setY(220);
