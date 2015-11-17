@@ -1,4 +1,5 @@
 private SpaceShip galaxy;
+private Asteroids bob;
 Star [] starList; 
 public void setup() 
   {
@@ -8,6 +9,8 @@ public void setup()
     for(int i=0; i< starList.length; i++){
         starList[i]= new Star(); 
     }
+    bob = new Asteroids();
+
   }
 public void draw() 
   {
@@ -17,6 +20,9 @@ public void draw()
     for(int i=0 ; i<starList.length; i++){
       starList[i].show();
     }
+    bob.show();
+    bob.move();
+    bob.rotate(20);
   }
 public void keyPressed(){
   if(keyCode==38)//up
@@ -51,6 +57,51 @@ public void keyPressed(){
         //background(0);
       }  
 }
+public class Asteroids extends Floater {
+    private  int rotation;
+    public Asteroids(){
+      corners = 4;
+      xCorners = new int[corners];
+      yCorners = new int[corners];
+      xCorners[0] = -8;
+      yCorners[0] = -8;
+      xCorners[1] = -12;
+      yCorners[1] = 0;
+      xCorners[2] = -8;
+      yCorners[2] = 8;
+      xCorners[3] = -4;
+      yCorners[3] = 0;
+     
+      myCenterX= 200;
+      myCenterY=200;
+      myPointDirection= 0;
+      myDirectionX= 0.1;
+      myDirectionY= 0.1;
+      myColor= color(255,255,255);
+
+      rotation=(int)((Math.random()*6)-3);
+
+
+
+    }
+    public void setX(int x){myCenterX=x;}  
+    public int getX(){return (int)myCenterX;}  
+    public void setY(int y){myCenterY=y;}   
+    public int getY(){return (int)myCenterY;} 
+    public void setDirectionX(double x){myDirectionX=x;}   
+    public double getDirectionX(){return (int)myDirectionX;}   
+    public void setDirectionY(double y){myDirectionY=y;}  
+    public double getDirectionY(){return (int)myDirectionY;}    
+    public void setPointDirection(int degrees){myPointDirection=degrees;}   
+    public double getPointDirection(){return myPointDirection;} 
+
+    public void move ()   //move the floater in the current direction of travel
+      {      
+        rotate(rotation);
+        super.move();
+      }   
+
+}
 
 public class SpaceShip extends Floater  
   {   
@@ -83,6 +134,8 @@ public class SpaceShip extends Floater
       public double getDirectionY(){return (int)myDirectionY;}    
       public void setPointDirection(int degrees){myPointDirection=degrees;}   
       public double getPointDirection(){return myPointDirection;} 
+
+     
 }
 
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
