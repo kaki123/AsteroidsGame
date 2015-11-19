@@ -22,7 +22,7 @@ public void draw()
     }
     bob.show();
     bob.move();
-    bob.rotate(20);
+    
   }
 public void keyPressed(){
   if(keyCode==38)//up
@@ -58,28 +58,28 @@ public void keyPressed(){
       }  
 }
 public class Asteroids extends Floater {
-    private  int rotation;
+    protected  int rotation;
     public Asteroids(){
       corners = 4;
       xCorners = new int[corners];
       yCorners = new int[corners];
-      xCorners[0] = -8;
-      yCorners[0] = -8;
-      xCorners[1] = -12;
+      xCorners[0] = -16;
+      yCorners[0] = -16;
+      xCorners[1] = -24;
       yCorners[1] = 0;
-      xCorners[2] = -8;
-      yCorners[2] = 8;
-      xCorners[3] = -4;
+      xCorners[2] = -16;
+      yCorners[2] = 16;
+      xCorners[3] = -8;
       yCorners[3] = 0;
-     
-      myCenterX= 200;
-      myCenterY=200;
+
+      myCenterX= 195;
+      myCenterY=195;
       myPointDirection= 0;
-      myDirectionX= 0.1;
-      myDirectionY= 0.1;
+      //myDirectionX= Math.random()*0.1;
+      //myDirectionY= Math.random()*0.1;
       myColor= color(255,255,255);
 
-      rotation=(int)((Math.random()*6)-3);
+      rotation=(int)((Math.random()*10)-5);
 
 
 
@@ -99,7 +99,12 @@ public class Asteroids extends Floater {
       {      
         rotate(rotation);
         super.move();
-      }   
+      }
+   /* public void rotate(double rotspeed) {
+        
+        myPointDirection+=rotspeed;
+         
+       }   */
 
 }
 
@@ -117,8 +122,10 @@ public class SpaceShip extends Floater
       yCorners[2] = 8;
       xCorners[3] = -4;
       yCorners[3] = 0;
-      myCenterX= 200;
-      myCenterY=200;
+     
+
+      myCenterX= 198;
+      myCenterY=198;
       myPointDirection= 0;
       myDirectionX= 0.1;
       myDirectionY= 0.1;
