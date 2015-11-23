@@ -1,15 +1,20 @@
 private SpaceShip galaxy;
-private Asteroids bob;
+//private Asteroids bob;
+Asteroids [] asteriod;
 Star [] starList; 
 public void setup() 
   {
     galaxy = new SpaceShip();
     size(512, 512);
     starList = new Star [200];
+    asteriod = new Asteroids[20];
     for(int i=0; i< starList.length; i++){
         starList[i]= new Star(); 
     }
-    bob = new Asteroids();
+    for(int i=0; i< asteriod.length; i++){
+        asteriod[i]= new Asteroids(); 
+    }
+    //bob = new Asteroids();
 
   }
 public void draw() 
@@ -20,9 +25,11 @@ public void draw()
     for(int i=0 ; i<starList.length; i++){
       starList[i].show();
     }
-    bob.show();
-    bob.move();
-    
+    for(int i=0; i< asteriod.length; i++){
+        asteriod[i].show(); 
+        asteriod[i].move(); 
+    }
+   
   }
 public void keyPressed(){
   if(keyCode==38)//up
@@ -58,29 +65,39 @@ public void keyPressed(){
       }  
 }
 public class Asteroids extends Floater {
-    protected  int rotation;
+    protected  int rotSpeed;
+    protected double rand;
     public Asteroids(){
       corners = 4;
       xCorners = new int[corners];
       yCorners = new int[corners];
-      xCorners[0] = -16;
+      xCorners[0] = 0;
       yCorners[0] = -16;
-      xCorners[1] = -24;
+      xCorners[1] = -8;
       yCorners[1] = 0;
-      xCorners[2] = -16;
+      xCorners[2] = 0;
       yCorners[2] = 16;
-      xCorners[3] = -8;
+      xCorners[3] = 8;
       yCorners[3] = 0;
 
-      myCenterX= 195;
-      myCenterY=195;
+      myCenterX= (int)((Math.random()*500)+6);
+      myCenterY=(int)((Math.random()*500)+6);
       myPointDirection= 0;
       //myDirectionX= Math.random()*0.1;
       //myDirectionY= Math.random()*0.1;
       myColor= color(255,255,255);
-
-      rotation=(int)((Math.random()*10)-5);
-
+      rand=(Math.random()*1);
+      if(rand<=.5)
+      {
+        rotSpeed= ((int)(Math.random()*5)+1);
+      }
+      if(rand>=.5)
+      {
+        rotSpeed= ((int)((Math.random()*5)-6));
+      }
+      
+      
+   
 
 
     }
@@ -97,7 +114,7 @@ public class Asteroids extends Floater {
 
     public void move ()   //move the floater in the current direction of travel
       {      
-        rotate(rotation);
+        rotate(rotSpeed);
         super.move();
       }
    /* public void rotate(double rotspeed) {
