@@ -1,20 +1,28 @@
 private SpaceShip galaxy;
 //private Asteroids bob;
-Asteroids [] asteriod;
+ArrayList <Asteroids> theList;
+//Asteroids [] asteriod;
 Star [] starList; 
 public void setup() 
   {
     galaxy = new SpaceShip();
     size(512, 512);
     starList = new Star [200];
-    asteriod = new Asteroids[20];
+   // asteriod = new Asteroids[20];
     for(int i=0; i< starList.length; i++){
         starList[i]= new Star(); 
     }
-    for(int i=0; i< asteriod.length; i++){
+    theList = new ArrayList <Asteroids>();
+     for(int i=0; i< 25; i++){
+    Asteroids someAst = new Asteroids();
+    theList.add(someAst);
+    }
+    
+    
+    /*for(int i=0; i< asteriod.length; i++){
         asteriod[i]= new Asteroids(); 
     }
-    //bob = new Asteroids();
+    //bob = new Asteroids();*/
 
   }
 public void draw() 
@@ -25,9 +33,11 @@ public void draw()
     for(int i=0 ; i<starList.length; i++){
       starList[i].show();
     }
-    for(int i=0; i< asteriod.length; i++){
-        asteriod[i].show(); 
-        asteriod[i].move(); 
+   for(int i=0; i< theList.size(); i++){
+       Asteroids someAst = theList.get(i);
+
+        someAst.show(); 
+        someAst.move(); 
     }
    
   }
@@ -85,7 +95,7 @@ public class Asteroids extends Floater {
       myPointDirection= 0;
       //myDirectionX= Math.random()*0.1;
       //myDirectionY= Math.random()*0.1;
-      myColor= color(255,255,255);
+      myColor= color(0,191,255);
       rand=(Math.random()*1);
       if(rand<=.5)
       {
@@ -157,7 +167,12 @@ public class SpaceShip extends Floater
       public void setDirectionY(double y){myDirectionY=y;}  
       public double getDirectionY(){return (int)myDirectionY;}    
       public void setPointDirection(int degrees){myPointDirection=degrees;}   
-      public double getPointDirection(){return myPointDirection;} 
+      public double getPointDirection(){return myPointDirection;}
+      public void keyPressed {
+
+        if(keyCode==)
+
+      } 
 
      
 }
