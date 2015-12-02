@@ -27,7 +27,7 @@ public void setup()
   }
 public void draw() 
   {
-    background(0);
+    background(200,200,200);
     galaxy.move();
     galaxy.show();
     for(int i=0 ; i<starList.length; i++){
@@ -38,6 +38,7 @@ public void draw()
 
         someAst.show(); 
         someAst.move(); 
+      
     }
    
   }
@@ -73,6 +74,17 @@ public void keyPressed(){
         galaxy.setPointDirection(0);
         //background(0);
       }  
+      if(keyCode==65){
+      fill(255,0,0);
+      ellipse((galaxy.getX()), (galaxy.getY()), 50, 50);
+      int x=galaxy.getX();
+      int y = galaxy.getY();
+     // double xi= galaxy.getDirectionX();
+      //x+=xi;
+      //x++;
+      //y++;
+    }
+  
 }
 public class Asteroids extends Floater {
     protected  int rotSpeed;
@@ -105,9 +117,11 @@ public class Asteroids extends Floater {
       {
         rotSpeed= ((int)((Math.random()*5)-6));
       }
-      
-      
-   
+for(int i=0; i< theList.size(); i++){
+      if(get((int)myCenterX,(int)myCenterY)==color(255,255,255)){
+        theList.remove(i);
+      }
+}   
 
 
     }
@@ -168,14 +182,10 @@ public class SpaceShip extends Floater
       public double getDirectionY(){return (int)myDirectionY;}    
       public void setPointDirection(int degrees){myPointDirection=degrees;}   
       public double getPointDirection(){return myPointDirection;}
-      public void keyPressed {
+      
+  }
 
-        if(keyCode==)
 
-      } 
-
-     
-}
 
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
   {   
