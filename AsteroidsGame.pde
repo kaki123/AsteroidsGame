@@ -1,6 +1,7 @@
 private SpaceShip galaxy;
 //private Asteroids bob;
-ArrayList <Asteroids> theList;
+ArrayList <Asteroids> theList= new ArrayList <Asteroids>();
+ArrayList <Bullet> bList= new ArrayList <Bullet>();
 //Asteroids [] asteriod;
 Star [] starList; 
 public void setup() 
@@ -12,19 +13,22 @@ public void setup()
     for(int i=0; i< starList.length; i++){
         starList[i]= new Star(); 
     }
-    theList = new ArrayList <Asteroids>();
+    
      for(int i=0; i< 25; i++){
     Asteroids someAst = new Asteroids();
     theList.add(someAst);
     }
-    
+      
+    }
+     
+     
     
     /*for(int i=0; i< asteriod.length; i++){
         asteriod[i]= new Asteroids(); 
     }
     //bob = new Asteroids();*/
 
-  }
+  
 public void draw() 
   {
     background(200,200,200);
@@ -40,8 +44,36 @@ public void draw()
         someAst.move(); 
       
     }
+
+    for(int i=0; i< bList.size(); i++){
+      Bullet someBullet = bList.get(i);
+
+        someBullet.show(); 
+        someBullet.move(); 
+      
+    }
+
+    /* if(keyCode==65){
+      fill(255,0,0);
+      int x = galaxy.getX()+20;
+      int y = galaxy.getY();
+      while(x<512&&x>0&&y<512&&y>0){
+      ellipse(x,y, 5, 5);
+      x+=20+(int)galaxy.getDirectionX()*galaxy.getPointDirection();
+      y+=20+(int)galaxy.getDirectionY()*galaxy.getPointDirection();
+      }//work on this*/
+      
+     // x+=galaxy.getDirectionX();
+     // y+=galaxy.getDirectionY();
+     // ellipse(x,y, 50, 50);
+     // double xi= galaxy.getDirectionX();
+      //x+=xi;
+      //x++;
+      //y++;
+    }
+  
    
-  }
+  
 public void keyPressed(){
   if(keyCode==38)//up
       {
@@ -75,17 +107,46 @@ public void keyPressed(){
         //background(0);
       }  
       if(keyCode==65){
-      fill(255,0,0);
-      ellipse((galaxy.getX()), (galaxy.getY()), 50, 50);
-      int x=galaxy.getX();
-      int y = galaxy.getY();
-     // double xi= galaxy.getDirectionX();
-      //x+=xi;
-      //x++;
-      //y++;
-    }
-  
+        for(int i=0; i< 25; i++){
+        Bullet someBullet = new Bullet();
+        bList.add(someBullet);
+      }
+
+  }
 }
+public class Bullet extends Floater  
+  {   private double  dRad;
+    public Bullet(){
+
+      myCenterX= galaxy.getX();
+      myCenterY=galaxy.getY();
+      myPointDirection= galaxy.getPointDirection();
+      dRad=myPointDirection*(Math.PI/180); 
+      myDirectionX= (5*Math.cos(dRad)+galaxy.getDirectionX());
+      myDirectionY=(5*Math.sin(dRad)+galaxy.getDirectionX());
+      
+    }
+      public void setX(int x){myCenterX=x;}  
+      public int getX(){return (int)myCenterX;}  
+      public void setY(int y){myCenterY=y;}   
+      public int getY(){return (int)myCenterY;} 
+      public void setDirectionX(double x){myDirectionX=x;}   
+      public double getDirectionX(){return (int)myDirectionX;}   
+      public void setDirectionY(double y){myDirectionY=y;}  
+      public double getDirectionY(){return (int)myDirectionY;}    
+      public void setPointDirection(int degrees){myPointDirection=degrees;}   
+      public double getPointDirection(){return myPointDirection;}
+
+      public void show(){
+        color(255,255,255);
+        ellipse((float)myCenterX, (float)myCenterY, 5,5);
+      }
+      public void move(){
+        myCenterX+=myDirectionX;
+        myCenterY+=myDirectionY;
+      }
+      
+  }
 public class Asteroids extends Floater {
     protected  int rotSpeed;
     protected double rand;
@@ -117,11 +178,11 @@ public class Asteroids extends Floater {
       {
         rotSpeed= ((int)((Math.random()*5)-6));
       }
-for(int i=0; i< theList.size(); i++){
+/*for(int i=0; i< theList.size(); i++){
       if(get((int)myCenterX,(int)myCenterY)==color(255,255,255)){
         theList.remove(i);
       }
-}   
+}   */
 
 
     }
@@ -261,7 +322,7 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
       vertex(xRotatedTranslated,yRotatedTranslated);    
     }   
     endShape(CLOSE);  
-  }   
+  }  
 } 
 public class Star{
   private int sX, sY, wi,he,c;
