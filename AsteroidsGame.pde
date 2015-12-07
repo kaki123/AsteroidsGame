@@ -14,12 +14,17 @@ public void setup()
         starList[i]= new Star(); 
     }
     
-     for(int i=0; i< 25; i++){
+    for(int i=0; i< 25; i++){
     Asteroids someAst = new Asteroids();
-    theList.add(someAst);
+    theList.add(i, someAst);
     }
+
+    /*for(int b=0; b< 25; b++){
+    Bullet someAst = new Bullet();
+    bList.add(b, someAst);
+    }*/
       
-    }
+  }
      
      
     
@@ -45,13 +50,33 @@ public void draw()
       
     }
 
-    for(int i=0; i< bList.size(); i++){
-      Bullet someBullet = bList.get(i);
+    for(int b=0; b< bList.size(); b++){
+      Bullet someBullet = bList.get(b);
 
         someBullet.show(); 
         someBullet.move(); 
       
     }
+    for(int i= 0; i<theList.size(); i++){
+      if(dist(galaxy.getX(), galaxy.getY(), theList.get(i).getX(), theList.get(i).getY())<20){
+        theList.remove(i);
+      }
+    }
+
+    
+      for(int i= 0; i<theList.size(); i++){
+        for(int b= 0; b<bList.size(); b++){
+      if(dist(bList.get(b).getX(), bList.get(b).getY(), theList.get(i).getX(), theList.get(i).getY())<25){
+       //the bullets are not removing, find solution
+       bList.remove(b);
+        theList.remove(i);
+
+
+        
+      }
+ 
+    }
+  }
 
     /* if(keyCode==65){
       fill(255,0,0);
@@ -107,9 +132,9 @@ public void keyPressed(){
         //background(0);
       }  
       if(keyCode==65){
-        for(int i=0; i< 25; i++){
+        for(int b=0; b< 25; b++){
         Bullet someBullet = new Bullet();
-        bList.add(someBullet);
+        bList.add(b, someBullet);
       }
 
   }
