@@ -7,7 +7,7 @@ Star [] starList;
 public void setup() 
   {
     galaxy = new SpaceShip();
-    size(512, 512);
+    size(512, 512, P2D);
     starList = new Star [200];
    // asteriod = new Asteroids[20];
     for(int i=0; i< starList.length; i++){
@@ -16,7 +16,7 @@ public void setup()
     
     for(int i=0; i< 25; i++){
     Asteroids someAst = new Asteroids();
-    theList.add(i, someAst);
+    theList.add(someAst);
     }
 
     /*for(int b=0; b< 25; b++){
@@ -65,18 +65,15 @@ public void draw()
 
     
       for(int i= 0; i<theList.size(); i++){
-        for(int b= 0; b<bList.size(); b++){
-      if(dist(bList.get(b).getX(), bList.get(b).getY(), theList.get(i).getX(), theList.get(i).getY())<25){
-       //the bullets are not removing, find solution
-       bList.remove(b);
-        theList.remove(i);
-
-
-        
-      }
- 
-    }
-  }
+        for(int b= 0; b<bList.size(); b++){ 
+          if(dist(theList.get(i).getX(), theList.get(i).getY(), bList.get(b).getX(), bList.get(b).getY())<25){
+           //the bullets are not removing, find solution
+            bList.remove(b);
+             theList.remove(i);
+           }
+        }
+         
+     }
 
     /* if(keyCode==65){
       fill(255,0,0);
@@ -131,12 +128,9 @@ public void keyPressed(){
         galaxy.setPointDirection(0);
         //background(0);
       }  
-      if(keyCode==65){
-        for(int b=0; b< 25; b++){
-        Bullet someBullet = new Bullet();
-        bList.add(b, someBullet);
-      }
-
+  if(keyCode==65){
+    Bullet someBullet = new Bullet();
+    bList.add(someBullet);
   }
 }
 public class Bullet extends Floater  
@@ -165,6 +159,8 @@ public class Bullet extends Floater
       public void show(){
         color(255,255,255);
         ellipse((float)myCenterX, (float)myCenterY, 5,5);
+        color(0,0,0);
+        line((float)myCenterX,(float)myCenterY-5, (float)myCenterX+1,(float)myCenterY);
       }
       public void move(){
         myCenterX+=myDirectionX;
