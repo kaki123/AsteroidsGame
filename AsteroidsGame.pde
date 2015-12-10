@@ -1,4 +1,6 @@
 private SpaceShip galaxy;
+public int hitCount;
+public int bulletCount;
 //private Asteroids bob;
 ArrayList <Asteroids> theList= new ArrayList <Asteroids>();
 ArrayList <Bullet> bList= new ArrayList <Bullet>();
@@ -36,7 +38,10 @@ public void setup()
   
 public void draw() 
   {
-    background(200,200,200);
+    background(0,0,0);
+    fill(255,255,255);
+    text("hits:"+ hitCount, 10,20);
+    text("bullet used:"+ bulletCount, 10,40);
     galaxy.move();
     galaxy.show();
     for(int i=0 ; i<starList.length; i++){
@@ -66,13 +71,23 @@ public void draw()
     
       for(int i= 0; i<theList.size(); i++){
         for(int b= 0; b<bList.size(); b++){ 
-          if(dist(theList.get(i).getX(), theList.get(i).getY(), bList.get(b).getX(), bList.get(b).getY())<25){
+          if(dist(theList.get(i).getX(), theList.get(i).getY(), bList.get(b).getX(), bList.get(b).getY())<10){
            //the bullets are not removing, find solution
             bList.remove(b);
              theList.remove(i);
+             hitCount++;
            }
         }
-         
+     }
+     if(bulletCount<35&&theList.size()==0){
+         background(0,102,0);
+        fill(255, 255,0);
+        text("You Win!", 250,250);
+     }
+     if(bulletCount>=35){
+        background(0,0,0);
+        fill(250, 0,0);
+        text("Game Over", 250,250);
      }
 
     /* if(keyCode==65){
@@ -131,6 +146,7 @@ public void keyPressed(){
   if(keyCode==65){
     Bullet someBullet = new Bullet();
     bList.add(someBullet);
+    bulletCount ++;
   }
 }
 public class Bullet extends Floater  
@@ -223,6 +239,7 @@ public class Asteroids extends Floater {
         rotate(rotSpeed);
         super.move();
       }
+  
    /* public void rotate(double rotspeed) {
         
         myPointDirection+=rotspeed;
