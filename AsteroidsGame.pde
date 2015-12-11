@@ -1,14 +1,18 @@
 private SpaceShip galaxy;
+private AI ai;
 public int hitCount;
 public int bulletCount;
+public int lives=5;
 //private Asteroids bob;
 ArrayList <Asteroids> theList= new ArrayList <Asteroids>();
 ArrayList <Bullet> bList= new ArrayList <Bullet>();
+ArrayList <eBullet> ebList= new ArrayList <eBullet>();
 //Asteroids [] asteriod;
 Star [] starList; 
 public void setup() 
   {
     galaxy = new SpaceShip();
+    ai = new AI();
     size(512, 512, P2D);
     starList = new Star [200];
    // asteriod = new Asteroids[20];
@@ -42,8 +46,11 @@ public void draw()
     fill(255,255,255);
     text("hits:"+ hitCount, 10,20);
     text("bullet used:"+ bulletCount, 10,40);
+    text("lives:"+ lives, 10,60);
     galaxy.move();
     galaxy.show();
+    ai.show();
+    ai.move();
     for(int i=0 ; i<starList.length; i++){
       starList[i].show();
     }
@@ -62,9 +69,21 @@ public void draw()
         someBullet.move(); 
       
     }
+    for(int c=0; c< ebList.size(); c++){
+      eBullet sBullet = ebList.get(c);
+
+        sBullet.show(); 
+        sBullet.move(); 
+      
+    }
     for(int i= 0; i<theList.size(); i++){
       if(dist(galaxy.getX(), galaxy.getY(), theList.get(i).getX(), theList.get(i).getY())<20){
         theList.remove(i);
+        lives--;
+        fill(255,0,0);
+           ellipse(galaxy.getX(), galaxy.getY(), 10, 10);
+           text("-1",200,200);
+        
       }
     }
 
@@ -79,7 +98,19 @@ public void draw()
            }
         }
      }
-     if(bulletCount<35&&theList.size()==0){
+     
+      for(int b= 0; b<ebList.size(); b++){ 
+        if(dist(galaxy.getX(), galaxy.getY(), ebList.get(b).getX(), ebList.get(b).getY())<10){
+         //the bullets are not removing, find solution
+          ebList.remove(b);
+           lives--;
+           fill(255,0,0);
+           ellipse(galaxy.getX(), galaxy.getY(), 10, 10);
+           text("-1",200,200);
+         }
+      }
+     
+     if(bulletCount<45&&theList.size()==0){
          background(0,102,0);
         fill(255, 255,0);
         text("You Win!", 250,250);
@@ -88,6 +119,12 @@ public void draw()
         background(0,0,0);
         fill(250, 0,0);
         text("Game Over", 250,250);
+     }
+     if(lives<=0){
+      background(0,0,0);
+        fill(250, 0,0);
+        text("Game Over", 250,250);
+
      }
 
     /* if(keyCode==65){
@@ -116,6 +153,8 @@ public void keyPressed(){
       {
         
         galaxy.accelerate(.05);
+        eBullet sBullet = new eBullet();
+    ebList.add(sBullet);
         // background(0);
       } 
   if(keyCode==40)//down
@@ -123,18 +162,24 @@ public void keyPressed(){
         
         galaxy.accelerate(-.05);
         // background(0);
+        eBullet sBullet = new eBullet();
+    ebList.add(sBullet);
        } 
     
   if(keyCode==37)//left
       {
         galaxy.rotate(-20);
         //background(0);
+        eBullet sBullet = new eBullet();
+    ebList.add(sBullet);
       }
   
   if(keyCode==39)//right
       {
        galaxy.rotate(20);
        //background(0);
+       eBullet sBullet = new eBullet();
+    ebList.add(sBullet);
       }
   if (keyCode==32)//spacebar
       {
@@ -142,6 +187,9 @@ public void keyPressed(){
         galaxy.setY(220);
         galaxy.setPointDirection(0);
         //background(0);
+        eBullet sBullet = new eBullet();
+    ebList.add(sBullet);
+    
       }  
   if(keyCode==65){
     Bullet someBullet = new Bullet();
@@ -234,6 +282,7 @@ public class Asteroids extends Floater {
     public void setPointDirection(int degrees){myPointDirection=degrees;}   
     public double getPointDirection(){return myPointDirection;} 
 
+
     public void move ()   //move the floater in the current direction of travel
       {      
         rotate(rotSpeed);
@@ -245,6 +294,68 @@ public class Asteroids extends Floater {
         myPointDirection+=rotspeed;
          
        }   */
+
+}
+public class eBullet extends Bullet{
+    private double  dRad;
+    public eBullet(){
+
+      myCenterX= ai.getX();
+      myCenterY=ai.getY();
+      myPointDirection= ai.getPointDirection();
+      dRad=myPointDirection*(Math.PI/180); 
+      myDirectionX= (5*Math.cos(dRad)+ai.getDirectionX());
+      myDirectionY=(5*Math.sin(dRad)+ai.getDirectionX());
+      
+    }
+    public void show(){
+        fill(255,0,0);
+        ellipse((float)myCenterX, (float)myCenterY, 5,5);
+        color(0,0,0);
+        line((float)myCenterX,(float)myCenterY-5, (float)myCenterX+1,(float)myCenterY);
+      }
+
+
+
+}
+public class AI extends SpaceShip{
+  protected  int rotSpeed;
+    protected double rand;
+    public AI(){
+      corners = 4;
+      xCorners = new int[corners];
+      yCorners = new int[corners];
+      xCorners[0] = -8;
+      yCorners[0] = -8;
+      xCorners[1] = 16;
+      yCorners[1] = 0;
+      xCorners[2] = -8;
+      yCorners[2] = 8;
+      xCorners[3] = -4;
+      yCorners[3] = 0;
+     
+
+      myCenterX= 100;
+      myCenterY=100;
+      myPointDirection= 0;
+      myDirectionX= 0.1;
+      myDirectionY= 0.1;
+      myColor= color(255,0,0);
+       rand=(Math.random()*1);
+      if(rand<=.5)
+      {
+        rotSpeed= ((int)(Math.random()*5)+1);
+      }
+      if(rand>=.5)
+      {
+        rotSpeed= ((int)((Math.random()*5)-6));
+      }
+    }
+     public void move ()   //move the floater in the current direction of travel
+      {      
+        rotate(rotSpeed);
+        super.move();
+      }
 
 }
 
